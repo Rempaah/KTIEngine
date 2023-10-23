@@ -1,6 +1,7 @@
 workspace "KaryaTulisIlmiah"
 	architecture "x64"
 	configurations { "Debug", "Release" }
+	startproject "Example"
 
 	project "Example"
 		location "Example"
@@ -8,10 +9,12 @@ workspace "KaryaTulisIlmiah"
 		kind "ConsoleApp"
 		language "C++"
 
-		files { "Demo/**.h", "Demo/**.cpp" }
+		files { "Example/**.h", "Example/**.cpp" }
 
 		targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
 		objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
+
+		links "PhysicsEngine"
 
 		filter "configurations:Debug"
 			defines "DEBUG"
