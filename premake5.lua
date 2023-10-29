@@ -3,41 +3,15 @@ workspace "KaryaTulisIlmiah"
 	configurations { "Debug", "Release" }
 	startproject "Example"
 
-	project "Example"
-		location "Example"
+	outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-		kind "ConsoleApp"
-		language "C++"
+	includeDir = {}
+	includeDir["SFML"] = "../External/Dependencies/include/SFML"
+	includeDir["PhysicsEngine"] = "../PhysicsEngine/include"
 
-		files { "Example/**.h", "Example/**.cpp" }
+	libDir = {}
+	libDir["SFMLD"] = "../External/Dependencies/lib/SFML/sfml-debug"
+	libDir["SFMLND"] = "../External/Dependencies/lib/SFML/sfml-ndebug"
 
-		targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-		objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-
-		links "PhysicsEngine"
-
-		filter "configurations:Debug"
-			defines "DEBUG"
-			symbols "On"
-
-		filter "configurations:Release"
-			defines "RELEASE"
-			optimize "On"
-	project "PhysicsEngine"
-		location "PhysicsEngine"
-
-		kind "StaticLib"
-		language "C++"
-
-		files { "PhysicsEngine/**.h", "PhysicsEngine/**.cpp" }
-
-		targetdir ("bin/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-		objdir ("bin-int/%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}")
-
-		filter "configurations:Debug"
-			defines "DEBUG"
-			symbols "On"
-
-		filter "configurations:Release"
-			defines "RELEASE"
-			optimize "On"
+	include "Example"
+	include "PhysicsEngine"
