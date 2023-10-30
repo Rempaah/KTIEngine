@@ -1,17 +1,17 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
-#include <CirlceCollider.h>
+
+#include "Circle.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "Example");
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 5;
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Example", sf::Style::Default, settings);
 	sf::Event event;
 
-	pe::CircleCollider collider;
-	collider.x = 100.0f;
-	collider.y = 100.0f;
-	collider.radius = 60.0f;
+	Circle circle(100.0f, 100.0f, 50.0f);
 
 	while (window.isOpen())
 	{
@@ -26,10 +26,17 @@ int main()
 			}
 		}
 
+		window.clear();
+		window.draw(circle);
+		window.display();
+
 		system("cls");
 
-		std::cout << collider.x << std::endl;
-		std::cout << collider.y << std::endl;
-		std::cout << collider.radius << std::endl;
+		auto [x, y] = circle.GetPosition();
+		float radius = circle.GetRadius();
+
+		std::cout << x << std::endl;
+		std::cout << y << std::endl;
+		std::cout << radius << std::endl;
 	}
 }

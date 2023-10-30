@@ -1,9 +1,9 @@
-#include <CirlceCollider.h>
+#include <CircleCollider.h>
 
 namespace pe {
 
 	CircleCollider::CircleCollider()
-		: x(0), y(0), radius(1)
+		: x(0), y(0), radius(0)
 	{}
 
 	CircleCollider::CircleCollider(float x, float y, float radius)
