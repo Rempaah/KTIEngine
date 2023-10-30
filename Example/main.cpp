@@ -11,7 +11,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Example", sf::Style::Default, settings);
 	sf::Event event;
 
-	Circle circle(100.0f, 100.0f, 50.0f);
+	Circle circle({ 100.0f, 100.0f }, 50.0f);
 
 	while (window.isOpen())
 	{

@@ -3,11 +3,11 @@
 namespace pe {
 
 	CircleCollider::CircleCollider()
-		: x(0), y(0), radius(0)
+		: radius(0)
 	{}
 
-	CircleCollider::CircleCollider(float x, float y, float radius)
-		: x(x), y(y), radius(radius)
+	CircleCollider::CircleCollider(const Vector2f& position, float radius)
+		: position(position), radius(radius)
 	{}
 
 	CircleCollider::~CircleCollider()
@@ -19,7 +19,7 @@ namespace pe {
 		return false;
 	}
 
-	bool CircleCollider::Collide(const CircleCollider& other, float* xPoint, float* yPoint)
+	bool CircleCollider::Collide(const CircleCollider& other, Vector2f* collisionPoint)
 	{
 		// TODO: Collision check + collision point
 		return false;

@@ -1,18 +1,19 @@
 #pragma once
 
+#include "PMath.h"
+
 namespace pe {
 	class CircleCollider
 	{
 	public:
 		CircleCollider();
-		CircleCollider(float x, float y, float radius);
+		CircleCollider(const Vector2f& position, float radius);
 		~CircleCollider();
 
 		bool Collide(const CircleCollider& other);
-		bool Collide(const CircleCollider& other, float* xPoint, float* yPoint);
+		bool Collide(const CircleCollider& other, Vector2f* collisionPoint);
 
-		float x;
-		float y;
+		Vector2f position;
 		float radius;
 	private:
 	};

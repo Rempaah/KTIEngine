@@ -13,11 +13,13 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\CircleCollider.h" />
+    <ClInclude Include="include\PMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PhysicsEngine.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\CircleCollider.cpp" />
+    <ClCompile Include="src\PMath.cpp" />
   </ItemGroup>
 </Project>
