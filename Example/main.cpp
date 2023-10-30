@@ -21,6 +21,7 @@ int main()
 			{
 			case sf::Event::Closed:
 				window.close();
+				break;
 			default:
 				break;
 			}
