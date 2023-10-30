@@ -12,10 +12,12 @@
     <ClInclude Include="include\PhysicsEngine.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\CirlceCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PhysicsEngine.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\CircleCollider.cpp" />
   </ItemGroup>
 </Project>
