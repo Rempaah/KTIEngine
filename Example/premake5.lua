@@ -1,6 +1,7 @@
 project "Example"
 		kind "ConsoleApp"
 		language "C++"
+		cppdialect "C++latest"
 
 		defines { "SFML_STATIC" }
 

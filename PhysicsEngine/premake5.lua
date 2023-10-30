@@ -1,6 +1,7 @@
 project "PhysicsEngine"
 		kind "StaticLib"
 		language "C++"
+		cppdialect "C++latest"
 
 		files { "**.h", "**.cpp" }
 
