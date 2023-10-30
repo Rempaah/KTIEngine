@@ -20,8 +20,5 @@ int main()
 				break;
 			}
 		}
-
-		Engine engine;
-		engine.hello();
 	}
 }
