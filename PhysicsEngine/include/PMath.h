@@ -15,9 +15,11 @@ namespace pe {
 		Vector2f operator-(const Vector2f& other)const;
 		Vector2f operator*(float other) const;
 		Vector2f operator/(float other) const;
+		float Length() const;
+		Vector2f Normalize() const;
 
-		static float dot(const Vector2f& v1, const Vector2f& v2);
-		static float distance(const Vector2f& v1, const Vector2f& v2);
+		static float Dot(const Vector2f& v1, const Vector2f& v2);
+		static float Distance(const Vector2f& v1, const Vector2f& v2);
 	};
 
 }

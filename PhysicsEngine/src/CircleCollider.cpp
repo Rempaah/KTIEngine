@@ -15,14 +15,25 @@ namespace pe {
 
 	bool CircleCollider::Collide(const CircleCollider& other)
 	{
-		// TODO: Collision check between circles
+		if (Vector2f::Dot(position, other.position) <= (radius + other.radius) * (radius * other.radius))
+		{
+			return true;
+		}
+
 		return false;
 	}
 
 	bool CircleCollider::Collide(const CircleCollider& other, Vector2f* collisionPoint)
 	{
-		// TODO: Collision check + collision point
-		return false;
+		bool collide = Collide(other);
+		Vector2f collisionDir = other.position - position;
+
+		if (collide)
+		{
+			*collisionPoint = position + collisionDir.Normalize() * radius;
+		}
+
+		return collide;
 	}
 
 }

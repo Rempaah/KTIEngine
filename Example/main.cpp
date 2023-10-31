@@ -11,7 +11,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Example", sf::Style::Default, settings);
 	sf::Event event;
 
-	Circle circle({ 100.0f, 100.0f }, 50.0f);
+	Circle circle1({ 100.0f, 100.0f }, 100.0f);
+	Circle circle2({ 280.0f, 100.0f }, 100.0f);
 
 	while (window.isOpen())
 	{
@@ -28,16 +29,8 @@ int main()
 		}
 
 		window.clear();
-		window.draw(circle);
+		window.draw(circle1);
+		window.draw(circle2);
 		window.display();
-
-		system("cls");
-
-		auto [x, y] = circle.GetPosition();
-		float radius = circle.GetRadius();
-
-		std::cout << x << std::endl;
-		std::cout << y << std::endl;
-		std::cout << radius << std::endl;
 	}
 }
