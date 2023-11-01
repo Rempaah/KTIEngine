@@ -23,6 +23,6 @@ public:
 	pe::Vector2f GetPosition();
 	float GetRadius();
 private:
-	pe::CircleCollider m_CircleCollider;
+	uint32_t m_CircleCollider;
 	sf::CircleShape m_Circle;
 };

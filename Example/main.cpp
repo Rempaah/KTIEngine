@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <PhysicsEngine.h>
 #include "Circle.h"
 
 int main()
@@ -27,6 +28,8 @@ int main()
 				break;
 			}
 		}
+
+		pe::PhysicsEngine::Update(2);
 
 		window.clear();
 		window.draw(circle1);

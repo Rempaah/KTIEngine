@@ -14,6 +14,8 @@ namespace pe {
 		bool Collide(const CircleCollider& other, Vector2f* collisionPoint);
 
 		Vector2f position;
+		Vector2f velocity;
+
 		float radius;
 	private:
 	};
