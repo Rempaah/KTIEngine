@@ -25,6 +25,20 @@ namespace pe {
 		return id;
 	}
 
+	uint32_t PhysicsEngine::CreateBoxCollider()
+	{
+		uint32_t id = m_Random(m_Distribution);
+		while (m_CircleColliders.contains(id))
+		{
+			id = m_Random(m_Distribution);
+		}
+
+		BoxCollider boxCollider;
+		m_BoxColliders[id] = boxCollider;
+
+		return id;
+	}
+
 	uint32_t PhysicsEngine::CreateCircleCollider(Vector2f position, float radius)
 	{
 		uint32_t id = CreateCircleCollider();
@@ -35,11 +49,27 @@ namespace pe {
 		return id;
 	}
 
+	uint32_t PhysicsEngine::CreateBoxCollider(Vector2f position, Vector2f size)
+	{
+		uint32_t id = CreateBoxCollider();
+		m_BoxColliders[id].position = position;
+		m_BoxColliders[id].size = size;
+		
+		return id;
+	}
+
 	CircleCollider& PhysicsEngine::GetCircleCollider(uint32_t id)
 	{
 		assert(m_CircleColliders.contains(id) && "Cannot find circle collider with id " && id);
 
 		return m_CircleColliders[id];
+	}
+
+	BoxCollider& PhysicsEngine::GetBoxCollider(uint32_t id)
+	{
+		assert(m_BoxColliders.contains(id) && "Cannot find box collider with id " && id);
+
+		return m_BoxColliders[id];
 	}
 
 	void PhysicsEngine::Update(float deltaTime)
