@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #include <SFML/Graphics.hpp>
 
@@ -15,6 +16,11 @@ int main()
 	Circle circle1({ 100.0f, 100.0f }, 100.0f);
 	Circle circle2({ 280.0f, 100.0f }, 100.0f);
 
+	std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
+	std::chrono::microseconds frameTime(16667);
+	std::chrono::microseconds deltaTime(0);
+	std::chrono::microseconds lag(0);
+
 	while (window.isOpen())
 	{
 		while (window.pollEvent(event))
@@ -29,11 +35,25 @@ int main()
 			}
 		}
 
-		pe::PhysicsEngine::Update(2);
+		deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - previousTime);
+		lag += deltaTime;
+		previousTime += deltaTime;
 
-		window.clear();
-		window.draw(circle1);
-		window.draw(circle2);
-		window.display();
+		while (lag >= frameTime)
+		{
+			lag -= frameTime;
+
+			pe::PhysicsEngine::Update(frameTime.count()/1000000.0f);
+			circle1.Update();
+			circle2.Update();
+
+			if (lag < frameTime)
+			{
+				window.clear(sf::Color(0, 0, 0, 255));
+				window.draw(circle1);
+				window.draw(circle2);
+				window.display();
+			}
+		}
 	}
 }

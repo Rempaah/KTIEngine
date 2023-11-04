@@ -46,6 +46,26 @@ namespace pe {
 		return *this * (1 / other);
 	}
 
+	void Vector2f::operator+=(const Vector2f& other)
+	{
+		*this = *this + other;
+	}
+
+	void Vector2f::operator-=(const Vector2f& other)
+	{
+		*this = *this - other;
+	}
+
+	void Vector2f::operator*=(float other)
+	{
+		*this = *this * other;
+	}
+
+	void Vector2f::operator/=(float other)
+	{
+		*this = *this / other;
+	}
+
 	float Vector2f::Length() const
 	{
 		return Distance(*this, { 0, 0 });

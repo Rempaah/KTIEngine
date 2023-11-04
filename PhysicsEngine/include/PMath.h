@@ -12,9 +12,13 @@ namespace pe {
 		~Vector2f();
 
 		Vector2f operator+(const Vector2f& other) const;
-		Vector2f operator-(const Vector2f& other)const;
+		Vector2f operator-(const Vector2f& other) const;
 		Vector2f operator*(float other) const;
 		Vector2f operator/(float other) const;
+		void operator+=(const Vector2f& other);
+		void operator-=(const Vector2f& other);
+		void operator*=(float other);
+		void operator/=(float other);
 		float Length() const;
 		Vector2f Normalize() const;
 

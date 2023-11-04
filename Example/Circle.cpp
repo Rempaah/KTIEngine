@@ -31,6 +31,12 @@ Circle::Circle(const pe::Vector2f& position, float radius)
 Circle::~Circle()
 {}
 
+void Circle::Update()
+{
+	pe::Vector2f newPos = GetPosition();
+	m_Circle.setPosition(newPos.x, newPos.y);
+}
+
 void Circle::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(m_Circle, states);

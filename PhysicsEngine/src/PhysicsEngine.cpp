@@ -5,6 +5,8 @@
 
 namespace pe {
 
+	Vector2f PhysicsEngine::gravity = { 0.0f, 1000.0f };
+
 	std::unordered_map<uint32_t, CircleCollider> PhysicsEngine::m_CircleColliders;
 	std::mt19937 PhysicsEngine::m_Distribution;
 	std::uniform_int_distribution<uint32_t> PhysicsEngine::m_Random(0, UINT32_MAX);
@@ -42,9 +44,10 @@ namespace pe {
 
 	void PhysicsEngine::Update(float deltaTime)
 	{
-		for (auto i = m_CircleColliders.begin(); i != m_CircleColliders.end(); i++)
+		for (auto& collider : m_CircleColliders)
 		{
-
+			collider.second.position += collider.second.velocity * deltaTime;
+			collider.second.velocity += gravity * deltaTime;
 		}
 	}
 

@@ -13,6 +13,7 @@ public:
 	Circle(const pe::Vector2f& position, float radius);
 	~Circle();
 
+	void Update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	// Setters

@@ -9,6 +9,8 @@ namespace pe {
 	class PhysicsEngine
 	{
 	public:
+		static Vector2f gravity;
+
 		static uint32_t CreateCircleCollider();
 		static uint32_t CreateCircleCollider(Vector2f position, float radius);
 		static CircleCollider& GetCircleCollider(uint32_t id);
