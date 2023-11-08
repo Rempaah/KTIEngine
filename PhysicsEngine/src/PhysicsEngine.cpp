@@ -7,9 +7,11 @@ namespace pe {
 
 	Vector2f PhysicsEngine::gravity = { 0.0f, 1000.0f };
 
-	std::unordered_map<uint32_t, CircleCollider> PhysicsEngine::m_CircleColliders;
 	std::mt19937 PhysicsEngine::m_Distribution;
 	std::uniform_int_distribution<uint32_t> PhysicsEngine::m_Random(0, UINT32_MAX);
+
+	std::unordered_map<uint32_t, CircleCollider> PhysicsEngine::m_CircleColliders;
+	std::unordered_map<uint32_t, BoxCollider> PhysicsEngine::m_BoxColliders;
 
 	uint32_t PhysicsEngine::CreateCircleCollider()
 	{

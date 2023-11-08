@@ -5,6 +5,7 @@
 
 #include <PhysicsEngine.h>
 #include "Circle.h"
+#include "Box.h"
 
 int main()
 {
@@ -13,8 +14,10 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Example", sf::Style::Default, settings);
 	sf::Event event;
 
-	Circle circle1({ 100.0f, 100.0f }, 100.0f);
-	Circle circle2({ 280.0f, 100.0f }, 100.0f);
+	Circle circle1({ 300.0f, 100.0f }, 100.0f);
+	Circle circle2({ 500.0f, 100.0f }, 100.0f);
+	Box box1({ 640, 600 }, { 1000, 200 });
+
 
 	std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
 	std::chrono::microseconds frameTime(16667);
@@ -52,6 +55,7 @@ int main()
 				window.clear(sf::Color(0, 0, 0, 255));
 				window.draw(circle1);
 				window.draw(circle2);
+				window.draw(box1);
 				window.display();
 			}
 		}

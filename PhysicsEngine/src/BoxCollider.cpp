@@ -10,4 +10,7 @@ namespace pe {
 		: position(position), size(size)
 	{}
 
+	BoxCollider::~BoxCollider()
+	{}
+
 }
