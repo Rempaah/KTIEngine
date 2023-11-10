@@ -1,5 +1,6 @@
 #include "PhysicsEngine.h"
 
+#include <iostream>
 #include <random>
 #include <cassert>
 
@@ -76,10 +77,20 @@ namespace pe {
 
 	void PhysicsEngine::Update(float deltaTime)
 	{
-		for (auto& collider : m_CircleColliders)
+		for (auto& circle : m_CircleColliders)
 		{
-			collider.second.position += collider.second.velocity * deltaTime;
-			collider.second.velocity += gravity * deltaTime;
+			for (auto& box : m_BoxColliders)
+			{
+				pe::Vector2f collisionNormal;
+				if (circle.second.Collide(box.second, &collisionNormal))
+				{
+					circle.second.velocity.x += 2 * circle.second.velocity.x * collisionNormal.x;
+					circle.second.velocity.y += 2 * circle.second.velocity.y * collisionNormal.y;
+				}
+			}
+
+			circle.second.position += circle.second.velocity * deltaTime;
+			circle.second.velocity += gravity * deltaTime;
 		}
 	}
 

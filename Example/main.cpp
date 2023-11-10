@@ -14,13 +14,13 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Example", sf::Style::Default, settings);
 	sf::Event event;
 
-	Circle circle1({ 300.0f, 100.0f }, 100.0f);
+	Circle circle1({ 70.0f, 100.0f }, 100.0f);
 	Circle circle2({ 500.0f, 100.0f }, 100.0f);
 	Box box1({ 640, 600 }, { 1000, 200 });
 
 
 	std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
-	std::chrono::microseconds frameTime(16667);
+	std::chrono::microseconds frameTime(8333);
 	std::chrono::microseconds deltaTime(0);
 	std::chrono::microseconds lag(0);
 
