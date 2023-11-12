@@ -84,8 +84,8 @@ namespace pe {
 				pe::Vector2f collisionNormal;
 				if (circle.second.Collide(box.second, &collisionNormal))
 				{
-					circle.second.velocity.x += 2 * circle.second.velocity.x * collisionNormal.x;
-					circle.second.velocity.y += 2 * circle.second.velocity.y * collisionNormal.y;
+					circle.second.velocity.x += 2.0f * circle.second.velocity.Length() * collisionNormal.x;
+					circle.second.velocity.y += 2.0f * circle.second.velocity.Length() * collisionNormal.y;
 				}
 			}
 

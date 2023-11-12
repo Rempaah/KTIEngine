@@ -14,9 +14,10 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Example", sf::Style::Default, settings);
 	sf::Event event;
 
-	Circle circle1({ 70.0f, 100.0f }, 100.0f);
-	Circle circle2({ 500.0f, 100.0f }, 100.0f);
-	Box box1({ 640, 600 }, { 1000, 200 });
+	Circle circle1({ 470.0f, 100.0f }, 100.0f);
+	Circle circle2({ 900.0f, 100.0f }, 100.0f);
+	Box box1({ 1040, 600 }, { 1000, 200 });
+	Box box2({ 200, 300 }, { 200, 1000 });
 
 
 	std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
@@ -56,6 +57,7 @@ int main()
 				window.draw(circle1);
 				window.draw(circle2);
 				window.draw(box1);
+				window.draw(box2);
 				window.display();
 			}
 		}

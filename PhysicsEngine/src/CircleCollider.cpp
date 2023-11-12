@@ -13,76 +13,38 @@ namespace pe {
 	CircleCollider::~CircleCollider()
 	{}
 
-	bool CircleCollider::Collide(const CircleCollider& other) const
+	bool CircleCollider::Collide(const CircleCollider& other, Vector2f* collisionNormal) const
 	{
-		if (Vector2f::Dot(position, other.position) <= (radius + other.radius) * (radius * other.radius))
+		Vector2f distance = other.position - position;
+
+		if (Vector2f::Dot(distance, distance) <= radius * radius)
 		{
+			*collisionNormal = distance.Normalize() * -1;
 			return true;
 		}
 
 		return false;
 	}
 
-	bool CircleCollider::Collide(const CircleCollider& other, Vector2f* collisionNormal) const
-	{
-		bool collide = Collide(other);
-		Vector2f distance = other.position - position;
-
-		if (collide)
-		{
-			*collisionNormal =  distance.Normalize() * -1;
-		}
-
-		return collide;
-	}
-
-
-	bool CircleCollider::Collide(const BoxCollider& other) const
-	{
-		if (position.x + radius < other.position.x - other.size.x / 2 || position.x - radius > other.position.x + other.size.x / 2
-			|| position.y + radius < other.position.y - other.size.y / 2 || position.y - radius > other.position.y + other.size.y / 2)
-			return false;
-
-		return true;
-	}
 
 	bool CircleCollider::Collide(const BoxCollider& other, Vector2f* collisionNormal) const
 	{
-		bool collide = Collide(other);
-
-		if (collide)
+		if (!(position.x + radius < other.position.x - other.size.x / 2 || position.x - radius > other.position.x + other.size.x / 2
+			|| position.y + radius < other.position.y - other.size.y / 2 || position.y - radius > other.position.y + other.size.y / 2))
 		{
-			Vector2f normal;
-			if (std::abs((position.x - other.position.x) - other.size.x / 2) > std::abs((position.y - other.position.y) - other.size.y))
-			{
-				// top collision
-				if (position.y - other.position.y > 0)
-				{
-					normal = { 0, 1 };
-				}
-				// bottom collision
-				else
-				{
-					normal = { 0, -1 };
-				}
-			}
-			else
-			{
-				// left collision
-				if (position.x - other.position.x > 0)
-				{
-					normal = { 1, 0 };
-				}
-				// bottom collision
-				else
-				{
-					normal = { -1, 0 };
-				}
-			}
+			Vector2f closestBoxPoint;
 
-			*collisionNormal = normal;
+			closestBoxPoint.x = std::clamp(position.x, other.position.x - other.size.x / 2, other.position.x + other.size.x / 2);
+			closestBoxPoint.y = std::clamp(position.y, other.position.y - other.size.y / 2, other.position.y + other.size.y / 2);
+
+			Vector2f distanceToBox = closestBoxPoint - position;
+			if (Vector2f::Dot(distanceToBox, distanceToBox) <= radius * radius)
+			{
+				*collisionNormal = distanceToBox.Normalize() * -1;
+				return true;
+			}
 		}
 
-		return collide;
+		return false;
 	}
 }
