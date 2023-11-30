@@ -15,7 +15,7 @@ namespace pe {
 		bool Collide(const BoxCollider& other, Vector2f* collisionNormal) const;
 
 		Vector2f position;
-		Vector2f velocity;
+		Vector2f velocity = { 0.0f, 0.0f };
 
 		float radius;
 	private:
