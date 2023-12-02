@@ -5,7 +5,7 @@
 Circle::Circle()
 	: m_Circle(0)
 {
-	m_CircleCollider = pe::PhysicsEngine::CreateCircleCollider({ 0, 0 }, 0);
+	m_CircleCollider = pe::PhysicsEngine::CreateCircleCollider();
 
 	m_Circle.setPosition(0, 0);
 	m_Circle.setOutlineColor(sf::Color::Green);
@@ -60,12 +60,12 @@ void Circle::SetRadius(float radius)
 
 // Getters
 
-pe::Vector2f Circle::GetPosition()
+pe::Vector2f Circle::GetPosition() const
 {
 	return pe::PhysicsEngine::GetCircleCollider(m_CircleCollider).position;
 }
 
-float Circle::GetRadius()
+float Circle::GetRadius() const
 {
 	return pe::PhysicsEngine::GetCircleCollider(m_CircleCollider).radius;
 }

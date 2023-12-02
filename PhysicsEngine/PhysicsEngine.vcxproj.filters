@@ -14,6 +14,7 @@
     </ClInclude>
     <ClInclude Include="include\CircleCollider.h" />
     <ClInclude Include="include\PMath.h" />
+    <ClInclude Include="include\BoxCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PhysicsEngine.cpp">
@@ -21,5 +22,6 @@
     </ClCompile>
     <ClCompile Include="src\CircleCollider.cpp" />
     <ClCompile Include="src\PMath.cpp" />
+    <ClCompile Include="src\BoxCollider.cpp" />
   </ItemGroup>
 </Project>

@@ -21,8 +21,8 @@ public:
 	void SetRadius(float radius);
 
 	// Getters
-	pe::Vector2f GetPosition();
-	float GetRadius();
+	pe::Vector2f GetPosition() const;
+	float GetRadius() const;
 private:
 	uint32_t m_CircleCollider;
 	sf::CircleShape m_Circle;
