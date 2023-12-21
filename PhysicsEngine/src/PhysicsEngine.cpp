@@ -52,9 +52,18 @@ namespace pe {
 				pe::Vector2f collisionNormal;
 				if (circle.second.Collide(box.second, &collisionNormal))
 				{
-					std::cout << circle.second.velocity.Length() << ", ";
+					//std::cout << circle.second.velocity.Length() << ", ";
 					circle.second.velocity += collisionNormal * -2.0f * pe::Vector2f::Dot(circle.second.velocity, collisionNormal);
-					std::cout << circle.second.velocity.Length() << std::endl;
+					//std::cout << circle.second.velocity.Length() << std::endl;
+				}
+			}
+
+			for (auto& circle2 : m_CircleColliders) {
+				pe::Vector2f collisionNormal;
+				if (circle.second.Collide(circle2.second, &collisionNormal)) {
+					//std::cout << circle.second.velocity.Length() << ", ";
+					circle.second.velocity += collisionNormal * -2.0f * pe::Vector2f::Dot(circle.second.velocity, collisionNormal);
+					//std::cout << circle.second.velocity.Length() << "circle and circle"<< std::endl;
 				}
 			}*/
 
