@@ -2,10 +2,10 @@
 
 #include <PhysicsEngine.h>
 
-Circle::Circle()
-	: m_Circle(0)
+Circle::Circle(pe::PhysicsEngine* physicsEngine)
+	: m_PhysicsEngine(physicsEngine), m_Circle(0)
 {
-	m_CircleCollider = pe::PhysicsEngine::CreateCircleCollider();
+	m_CircleCollider = m_PhysicsEngine->CreateCircleCollider();
 
 	m_Circle.setPosition(0, 0);
 	m_Circle.setOutlineColor(sf::Color::Green);
@@ -15,10 +15,10 @@ Circle::Circle()
 	m_Circle.setOrigin(0, 0);
 }
 
-Circle::Circle(const pe::Vector2f& position, float radius)
-	: m_Circle(radius)
+Circle::Circle(pe::PhysicsEngine* physicsEngine, const pe::Vector2f& position, float radius)
+	: m_PhysicsEngine(physicsEngine), m_Circle(radius)
 {
-	m_CircleCollider = pe::PhysicsEngine::CreateCircleCollider(position, radius);
+	m_CircleCollider = m_PhysicsEngine->CreateCircleCollider(position, radius);
 
 	m_Circle.setPosition(position.x, position.y);
 	m_Circle.setOutlineColor(sf::Color::Green);
@@ -47,13 +47,13 @@ void Circle::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void Circle::SetPosition(const pe::Vector2f& position)
 {
 	m_Circle.setPosition(position.x, position.y);
-	pe::PhysicsEngine::GetCircleCollider(m_CircleCollider).position = position;
+	m_PhysicsEngine->GetCircleCollider(m_CircleCollider).position = position;
 }
 
 void Circle::SetRadius(float radius)
 {
 	m_Circle.setRadius(radius);
-	pe::PhysicsEngine::GetCircleCollider(m_CircleCollider).radius = radius;
+	m_PhysicsEngine->GetCircleCollider(m_CircleCollider).radius = radius;
 
 	m_Circle.setOrigin(radius, radius);
 }
@@ -62,10 +62,10 @@ void Circle::SetRadius(float radius)
 
 pe::Vector2f Circle::GetPosition() const
 {
-	return pe::PhysicsEngine::GetCircleCollider(m_CircleCollider).position;
+	return m_PhysicsEngine->GetCircleCollider(m_CircleCollider).position;
 }
 
 float Circle::GetRadius() const
 {
-	return pe::PhysicsEngine::GetCircleCollider(m_CircleCollider).radius;
+	return m_PhysicsEngine->GetCircleCollider(m_CircleCollider).radius;
 }

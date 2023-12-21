@@ -5,13 +5,12 @@
 #include <cassert>
 
 namespace pe {
+	PhysicsEngine::PhysicsEngine()
+		: m_Random(0, UINT32_MAX), m_Gravity({0.0f, 1000.0f})
+	{}
 
-	Vector2f PhysicsEngine::gravity = { 0.0f, 1000.0f };
-
-	std::mt19937 PhysicsEngine::m_Distribution;
-	std::uniform_int_distribution<uint32_t> PhysicsEngine::m_Random(0, UINT32_MAX);
-
-	std::unordered_map<uint32_t, CircleCollider> PhysicsEngine::m_CircleColliders;
+	PhysicsEngine::~PhysicsEngine()
+	{}
 
 	uint32_t PhysicsEngine::CreateCircleCollider()
 	{
@@ -23,17 +22,6 @@ namespace pe {
 
 		CircleCollider circleCollider;
 		m_CircleColliders[id] = circleCollider;
-
-		return id;
-	}
-
-	uint32_t PhysicsEngine::CreateBoxCollider()
-	{
-		uint32_t id = m_Random(m_Distribution);
-		while (m_CircleColliders.contains(id))
-		{
-			id = m_Random(m_Distribution);
-		}
 
 		return id;
 	}
@@ -70,7 +58,7 @@ namespace pe {
 				}
 			}*/
 
-			circle.second.velocity += gravity * deltaTime;
+			circle.second.velocity += m_Gravity * deltaTime;
 			circle.second.position += circle.second.velocity * deltaTime;
 		}
 	}

@@ -13,8 +13,10 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1280, 1280), "Example", sf::Style::Default, settings);
 	sf::Event event;
 
-	Circle circle1({ 480.0f, 300.0f }, 100.0f);
-	Circle circle2({ 900.0f, 300.0f }, 100.0f);
+	pe::PhysicsEngine physicsEngine;
+
+	Circle circle1(&physicsEngine, { 480.0f, 300.0f }, 100.0f);
+	Circle circle2(&physicsEngine, { 900.0f, 300.0f }, 100.0f);
 
 	std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
 	std::chrono::microseconds frameTime(8333);
@@ -43,7 +45,7 @@ int main()
 		{
 			lag -= frameTime;
 
-			pe::PhysicsEngine::Update(frameTime.count()/1000000.0f);
+			physicsEngine.Update(frameTime.count()/1000000.0f);
 			circle1.Update();
 			circle2.Update();
 

@@ -4,13 +4,14 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <PhysicsEngine.h>
 #include <CircleCollider.h>
 
 class Circle : public sf::Drawable
 {
 public:
-	Circle();
-	Circle(const pe::Vector2f& position, float radius);
+	Circle(pe::PhysicsEngine* physicsEngine);
+	Circle(pe::PhysicsEngine* physicsEngine, const pe::Vector2f& position, float radius);
 	~Circle();
 
 	void Update();
@@ -26,4 +27,6 @@ public:
 private:
 	uint32_t m_CircleCollider;
 	sf::CircleShape m_Circle;
+
+	pe::PhysicsEngine* m_PhysicsEngine;
 };
