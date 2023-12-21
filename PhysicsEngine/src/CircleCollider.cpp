@@ -1,4 +1,5 @@
 #include <CircleCollider.h>
+#include<iostream>
 
 namespace pe {
 
@@ -16,12 +17,15 @@ namespace pe {
 	bool CircleCollider::Collide(const CircleCollider& other, Vector2f* collisionNormal) const
 	{
 		Vector2f distance = other.position - position;
-
-		if (Vector2f::Dot(distance, distance) <= radius * radius)
+		//std::cout << Vector2f::Dot(distance, distance) << " " << 4 * radius * radius << std::endl;
+		float dis = Vector2f::Dot(distance, distance);
+		if (dis>1e-6 and dis <= 4*radius * radius)
 		{
 			*collisionNormal = distance.Normalize() * -1;
 			return true;
 		}
+
+		
 
 		return false;
 	}
