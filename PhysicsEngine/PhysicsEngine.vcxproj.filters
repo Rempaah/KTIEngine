@@ -9,19 +9,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CircleCollider.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PMath.h">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="include\PhysicsEngine.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\CircleCollider.h" />
-    <ClInclude Include="include\PMath.h" />
-    <ClInclude Include="include\BoxCollider.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\CircleCollider.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PMath.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\PhysicsEngine.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\CircleCollider.cpp" />
-    <ClCompile Include="src\PMath.cpp" />
-    <ClCompile Include="src\BoxCollider.cpp" />
   </ItemGroup>
 </Project>

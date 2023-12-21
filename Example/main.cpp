@@ -5,7 +5,6 @@
 
 #include <PhysicsEngine.h>
 #include "Circle.h"
-#include "Box.h"
 
 int main()
 {
@@ -16,11 +15,6 @@ int main()
 
 	Circle circle1({ 480.0f, 300.0f }, 100.0f);
 	Circle circle2({ 900.0f, 300.0f }, 100.0f);
-	Box box2({ 200, 500 }, { 200, 1000 });
-	Box box3({ 1200, 500 }, { 200, 1000 });
-	Box box1({ 600, 800 }, { 1000, 200 });
-	Box box4({ 600, 0 }, { 1000, 200 });
-	Box box5({ 600, 640 }, { 100, 100 });
 
 	std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
 	std::chrono::microseconds frameTime(8333);
@@ -58,11 +52,6 @@ int main()
 				window.clear(sf::Color(0, 0, 0, 255));
 				window.draw(circle1);
 				window.draw(circle2);
-				window.draw(box1);
-				window.draw(box2);
-				window.draw(box3);
-				window.draw(box4);
-				window.draw(box5);
 				window.display();
 			}
 		}
