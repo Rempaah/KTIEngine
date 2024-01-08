@@ -11,12 +11,14 @@ namespace pe {
 	class PhysicsEngine
 	{
 	public:
-		PhysicsEngine();
+		PhysicsEngine(float left, float right, float bottom, float top);
 		~PhysicsEngine();
 
 		uint32_t CreateCircleCollider();
 		uint32_t CreateCircleCollider(Vector2f position, float radius);
 		CircleCollider& GetCircleCollider(uint32_t id);
+
+		float left, right, bottom, top;
 
 		void Update(float deltaTime);
 	private:

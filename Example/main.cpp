@@ -10,13 +10,13 @@ int main()
 {
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 5;
-	sf::RenderWindow window(sf::VideoMode(1280, 1280), "Example", sf::Style::Default, settings);
+	sf::RenderWindow window(sf::VideoMode(1000, 1000), "Example", sf::Style::Default, settings);
 	sf::Event event;
 
-	pe::PhysicsEngine physicsEngine;
+	pe::PhysicsEngine physicsEngine(0, 1000, 0, 1000);
 
-	Circle circle1(&physicsEngine, { 480.0f, 300.0f }, 100.0f);
-	Circle circle2(&physicsEngine, { 900.0f, 300.0f }, 100.0f);
+	Circle circle1(&physicsEngine, { 450.0f, 200.0f }, 100.0f);
+	Circle circle2(&physicsEngine, { 500.0f, 900.0f }, 100.0f);
 
 	std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
 	std::chrono::microseconds frameTime(8333);

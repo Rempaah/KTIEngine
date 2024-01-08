@@ -25,8 +25,6 @@ namespace pe {
 			return true;
 		}
 
-		
-
 		return false;
 	}
 }

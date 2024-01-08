@@ -19,6 +19,7 @@ Circle::Circle(pe::PhysicsEngine* physicsEngine, const pe::Vector2f& position, f
 	: m_PhysicsEngine(physicsEngine), m_Circle(radius)
 {
 	m_CircleCollider = m_PhysicsEngine->CreateCircleCollider(position, radius);
+	m_PhysicsEngine->GetCircleCollider(m_CircleCollider).position.y = (m_PhysicsEngine->top - m_PhysicsEngine->bottom) - position.y;
 
 	m_Circle.setPosition(position.x, position.y);
 	m_Circle.setOutlineColor(sf::Color::Green);
@@ -34,7 +35,7 @@ Circle::~Circle()
 void Circle::Update()
 {
 	pe::Vector2f newPos = GetPosition();
-	m_Circle.setPosition(newPos.x, newPos.y);
+	m_Circle.setPosition(newPos.x, (m_PhysicsEngine->top - m_PhysicsEngine->bottom) - newPos.y);
 }
 
 void Circle::draw(sf::RenderTarget& target, sf::RenderStates states) const

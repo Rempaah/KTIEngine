@@ -5,8 +5,9 @@
 #include <cassert>
 
 namespace pe {
-	PhysicsEngine::PhysicsEngine()
-		: m_Random(0, UINT32_MAX), m_Gravity({0.0f, 1000.0f})
+	PhysicsEngine::PhysicsEngine(float left, float right, float bottom, float top)
+		: m_Random(0, UINT32_MAX), m_Gravity({0.0f, -1000.0f}),
+		left(left), right(right), bottom(bottom), top(top)
 	{}
 
 	PhysicsEngine::~PhysicsEngine()
@@ -45,20 +46,36 @@ namespace pe {
 
 	void PhysicsEngine::Update(float deltaTime)
 	{
-		for (auto& circle : m_CircleColliders)
+		for (auto& [id, circle] : m_CircleColliders)
 		{
-			/*
-			for (auto& circle2 : m_CircleColliders) {
+			if (circle.position.y - circle.radius < bottom || circle.position.y + circle.radius > top)
+			{
+				circle.position.y = (circle.position.y - circle.radius < bottom)? bottom + circle.radius : top - circle.radius;
+				circle.velocity.y *= -1;
+			}
+			if (circle.position.x - circle.radius < left || circle.position.x + circle.radius > right)
+			{
+				circle.position.x = (circle.position.x - circle.radius < left) ? left + circle.radius : right - circle.radius;
+				circle.velocity.x *= -1;
+			}
+
+			circle.velocity += m_Gravity * deltaTime;
+			circle.position += circle.velocity * deltaTime;
+
+			for (auto& [otherId, otherCircle] : m_CircleColliders)
+			{
+				if (id == otherId)
+					continue;
 				pe::Vector2f collisionNormal;
-				if (circle.second.Collide(circle2.second, &collisionNormal)) {
+				if (circle.Collide(otherCircle, &collisionNormal))
+				{
 					//std::cout << circle.second.velocity.Length() << ", ";
-					circle.second.velocity += collisionNormal * -2.0f * pe::Vector2f::Dot(circle.second.velocity, collisionNormal);
+					pe::Vector2f temp = circle.velocity;
+					circle.velocity = otherCircle.velocity;
+					otherCircle.velocity = temp;
 					//std::cout << circle.second.velocity.Length() << "circle and circle"<< std::endl;
 				}
-			}*/
-
-			circle.second.velocity += m_Gravity * deltaTime;
-			circle.second.position += circle.second.velocity * deltaTime;
+			}
 		}
 	}
 
