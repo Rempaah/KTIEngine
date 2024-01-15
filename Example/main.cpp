@@ -15,8 +15,18 @@ int main()
 
 	pe::PhysicsEngine physicsEngine(0, 1000, 0, 1000);
 
-	Circle circle1(&physicsEngine, { 450.0f, 200.0f }, 100.0f);
-	Circle circle2(&physicsEngine, { 500.0f, 900.0f }, 100.0f);
+	std::vector<Circle> something;
+	int n;
+	std::cin >> n;
+	while (n--) {
+		float a, b, c;
+		std::cin >> a >> b >> c;
+		Circle temp(&physicsEngine, { a, b}, c);
+		something.push_back(temp);
+	}
+
+	physicsEngine.Start();
+	
 
 	std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
 	std::chrono::microseconds frameTime(8333);
@@ -46,14 +56,15 @@ int main()
 			lag -= frameTime;
 
 			physicsEngine.Update(frameTime.count()/1000000.0f);
-			circle1.Update();
-			circle2.Update();
-
+			for (auto& i : something) {
+				i.Update();
+			}
 			if (lag < frameTime)
 			{
 				window.clear(sf::Color(0, 0, 0, 255));
-				window.draw(circle1);
-				window.draw(circle2);
+				for (auto& i : something) {
+					window.draw(i);
+				}
 				window.display();
 			}
 		}
