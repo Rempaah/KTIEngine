@@ -16,6 +16,7 @@ namespace pe {
 		Vector2f velocity = { 0.0f, 0.0f };
 
 		float radius;
+		std::pair<int, int>  loc;
 	private:
 	};
 }
