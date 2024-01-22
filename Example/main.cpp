@@ -6,6 +6,8 @@
 #include <PhysicsEngine.h>
 #include "Circle.h"
 
+#include "Timer.h"
+
 int main()
 {
 	sf::ContextSettings settings;
@@ -68,5 +70,7 @@ int main()
 				window.display();
 			}
 		}
+
+		std::cout << timer.GetNow() << std::endl;
 	}
 }
