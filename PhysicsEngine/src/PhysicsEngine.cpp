@@ -7,7 +7,7 @@
 namespace pe {
 	PhysicsEngine::PhysicsEngine(float left, float right, float bottom, float top)
 		: m_Random(0, UINT32_MAX), m_Gravity({0.0f, -1000.0f}),
-		left(left), right(right), bottom(bottom), top(top)
+		left(left), right(right), bottom(bottom), top(top), m_Quadtree(left, right, top, bottom)
 	{}
 
 	PhysicsEngine::~PhysicsEngine()
@@ -59,7 +59,7 @@ namespace pe {
 		}
 	}
 
-	void PhysicsEngine::Update(float deltaTime)
+	void PhysicsEngine::UpdateGrid(float deltaTime)
 	{
 		for (auto& [id, circle] : m_CircleColliders)
 		{
@@ -91,7 +91,7 @@ namespace pe {
 						{
 							//std::cout << circle.second.velocity.Length() << ", ";
 							circle.velocity = collisionNormal * circle.velocity.Length() * 1;
-							otherCircle.velocity = collisionNormal * otherCircle.velocity.Length() * -1;
+							//otherCircle.velocity = collisionNormal * otherCircle.velocity.Length() * -1;
 							//pe::Vector2f temp = circle.velocity;
 							//circle.velocity = otherCircle.velocity;
 							//otherCircle.velocity = res;
@@ -132,4 +132,46 @@ namespace pe {
 		}
 	}
 
+	void PhysicsEngine::UpdateQuadtree(float deltaTime)
+	{
+		std::vector<Node> nodes = m_Quadtree.GenerateNodes(m_CircleColliders);
+
+		for (const auto& node : nodes)
+		{
+			for (uint32_t id1 : node.colliderIds)
+			{
+				if (m_CircleColliders[id1].position.y - m_CircleColliders[id1].radius < bottom || m_CircleColliders[id1].position.y + m_CircleColliders[id1].radius > top)
+				{
+					m_CircleColliders[id1].position.y = (m_CircleColliders[id1].position.y - m_CircleColliders[id1].radius < bottom) ? bottom + m_CircleColliders[id1].radius : top - m_CircleColliders[id1].radius;
+					m_CircleColliders[id1].velocity.y *= -1;
+				}
+				if (m_CircleColliders[id1].position.x - m_CircleColliders[id1].radius < left || m_CircleColliders[id1].position.x + m_CircleColliders[id1].radius > right)
+				{
+					m_CircleColliders[id1].position.x = (m_CircleColliders[id1].position.x - m_CircleColliders[id1].radius < left) ? left + m_CircleColliders[id1].radius : right - m_CircleColliders[id1].radius;
+					m_CircleColliders[id1].velocity.x *= -1;
+				}
+
+				m_CircleColliders[id1].velocity += m_Gravity * deltaTime;
+				m_CircleColliders[id1].position += m_CircleColliders[id1].velocity * deltaTime;
+
+				for (uint32_t id2 : node.colliderIds)
+				{
+					if (id1 == id2)
+						continue;
+
+					pe::Vector2f collisionNormal;
+					if (m_CircleColliders[id1].Collide(m_CircleColliders[id2], &collisionNormal))
+					{
+						//std::cout << circle.second.velocity.Length() << ", ";
+						m_CircleColliders[id1].velocity = collisionNormal * m_CircleColliders[id1].velocity.Length() * 1;
+						//m_CircleColliders[id2].velocity = collisionNormal * m_CircleColliders[id2].velocity.Length() * -1;
+						//pe::Vector2f temp = circle.velocity;
+						//circle.velocity = otherCircle.velocity;
+						//otherCircle.velocity = res;
+						//std::cout << circle.second.velocity.Length() << "circle and circle"<< std::endl;
+					}
+				}
+			}
+		}
+	}
 }

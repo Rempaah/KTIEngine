@@ -19,6 +19,7 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Timer.h" />
+    <ClInclude Include="include\Quadtree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CircleCollider.cpp">
@@ -31,5 +32,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="src\Quadtree.cpp" />
   </ItemGroup>
 </Project>

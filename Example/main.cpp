@@ -57,7 +57,7 @@ int main()
 		{
 			lag -= frameTime;
 
-			physicsEngine.Update(frameTime.count()/1000000.0f);
+			physicsEngine.UpdateQuadtree(frameTime.count()/1000000.0f);
 			for (auto& i : something) {
 				i.Update();
 			}
@@ -70,7 +70,5 @@ int main()
 				window.display();
 			}
 		}
-
-		std::cout << timer.GetNow() << std::endl;
 	}
 }
