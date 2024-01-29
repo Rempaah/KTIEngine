@@ -61,11 +61,13 @@ namespace pe {
 
 	void PhysicsEngine::UpdateGrid(float deltaTime)
 	{
+		int count = 0;
+
 		for (auto& [id, circle] : m_CircleColliders)
 		{
 			if (circle.position.y - circle.radius < bottom || circle.position.y + circle.radius > top)
 			{
-				circle.position.y = (circle.position.y - circle.radius < bottom)? bottom + circle.radius : top - circle.radius;
+				circle.position.y = (circle.position.y - circle.radius < bottom) ? bottom + circle.radius : top - circle.radius;
 				circle.velocity.y *= -1;
 			}
 			if (circle.position.x - circle.radius < left || circle.position.x + circle.radius > right)
@@ -77,30 +79,6 @@ namespace pe {
 			circle.velocity += m_Gravity * deltaTime;
 			circle.position += circle.velocity * deltaTime;
 
-			int minx = std::max(0, circle.loc.first/10 - 1), maxx = std::min(100, circle.loc.first/10 + 1);
-			int miny = std::max(0, circle.loc.second/10 - 1), maxy = std::min(100, circle.loc.second/10 + 1);
-
-			for (int i = minx; i <= maxx; i++) {
-				for (int j = miny; j <= maxy; j++) {
-					for (auto& k : grid[i][j]) {
-						if (id == k) continue;
-
-						CircleCollider otherCircle = m_CircleColliders[k];
-						pe::Vector2f collisionNormal;
-						if (circle.Collide(otherCircle, &collisionNormal))
-						{
-							//std::cout << circle.second.velocity.Length() << ", ";
-							circle.velocity = collisionNormal * circle.velocity.Length() * 1;
-							//otherCircle.velocity = collisionNormal * otherCircle.velocity.Length() * -1;
-							//pe::Vector2f temp = circle.velocity;
-							//circle.velocity = otherCircle.velocity;
-							//otherCircle.velocity = res;
-							//std::cout << circle.second.velocity.Length() << "circle and circle"<< std::endl;
-						}
-					}
-				}
-			}
-
 			int col, row;
 			col = circle.position.x / 10;
 			row = circle.position.y / 10;
@@ -110,6 +88,33 @@ namespace pe {
 
 			grid[col][row].push_back(id);
 			circle.loc = { col, row };
+
+			int minx = std::max(0, circle.loc.first - 1), maxx = std::min(100, circle.loc.first + 1);
+			int miny = std::max(0, circle.loc.second - 1), maxy = std::min(100, circle.loc.second + 1);
+
+
+
+			for (int i = minx; i <= maxx; i++) {
+				for (int j = miny; j <= maxy; j++) {
+					for (auto k : grid[i][j]) {
+						count++;
+						if (id == k)continue;
+						CircleCollider otherCircle = m_CircleColliders[k];
+						pe::Vector2f collisionNormal;
+						if (circle.Collide(otherCircle, &collisionNormal))
+						{
+							circle.velocity = collisionNormal * circle.velocity.Length() * 1;
+							otherCircle.velocity = collisionNormal * otherCircle.velocity.Length() * -1;
+							//pe::Vector2f temp = circle.velocity;
+							//circle.velocity = otherCircle.velocity;
+							//otherCircle.velocity = res;
+							//std::cout << circle.second.velocity.Length() << "circle and circle"<< std::endl;
+						}
+					}
+				}
+			}
+
+
 
 			//for (auto& [otherId, otherCircle] : m_CircleColliders)
 			//{
@@ -130,10 +135,13 @@ namespace pe {
 
 
 		}
+
+		std::cout << count << '\n';
 	}
 
 	void PhysicsEngine::UpdateQuadtree(float deltaTime)
 	{
+		int count = 0;
 		std::vector<Node> nodes = m_Quadtree.GenerateNodes(m_CircleColliders);
 
 		for (const auto& node : nodes)
@@ -156,6 +164,7 @@ namespace pe {
 
 				for (uint32_t id2 : node.colliderIds)
 				{
+					count++;
 					if (id1 == id2)
 						continue;
 
@@ -164,7 +173,7 @@ namespace pe {
 					{
 						//std::cout << circle.second.velocity.Length() << ", ";
 						m_CircleColliders[id1].velocity = collisionNormal * m_CircleColliders[id1].velocity.Length() * 1;
-						//m_CircleColliders[id2].velocity = collisionNormal * m_CircleColliders[id2].velocity.Length() * -1;
+						m_CircleColliders[id2].velocity = collisionNormal * m_CircleColliders[id2].velocity.Length() * -1;
 						//pe::Vector2f temp = circle.velocity;
 						//circle.velocity = otherCircle.velocity;
 						//otherCircle.velocity = res;
@@ -173,5 +182,6 @@ namespace pe {
 				}
 			}
 		}
+		std::cout << count << '\n';
 	}
 }
