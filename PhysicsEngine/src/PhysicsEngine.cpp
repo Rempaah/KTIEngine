@@ -65,6 +65,9 @@ namespace pe {
 
 		for (auto& [id, circle] : m_CircleColliders)
 		{
+			circle.velocity += m_Gravity * deltaTime;
+			circle.position += circle.velocity * deltaTime;
+
 			if (circle.position.y - circle.radius < bottom || circle.position.y + circle.radius > top)
 			{
 				circle.position.y = (circle.position.y - circle.radius < bottom) ? bottom + circle.radius : top - circle.radius;
@@ -75,9 +78,6 @@ namespace pe {
 				circle.position.x = (circle.position.x - circle.radius < left) ? left + circle.radius : right - circle.radius;
 				circle.velocity.x *= -1;
 			}
-
-			circle.velocity += m_Gravity * deltaTime;
-			circle.position += circle.velocity * deltaTime;
 
 			int col, row;
 			col = circle.position.x / 10;
@@ -91,12 +91,10 @@ namespace pe {
 
 			int minx = std::max(0, circle.loc.first - 1), maxx = std::min(100, circle.loc.first + 1);
 			int miny = std::max(0, circle.loc.second - 1), maxy = std::min(100, circle.loc.second + 1);
-
-
-
 			for (int i = minx; i <= maxx; i++) {
 				for (int j = miny; j <= maxy; j++) {
 					for (auto k : grid[i][j]) {
+						std::cout << grid[i][j].size() << '\n';
 						count++;
 						if (id == k)continue;
 						CircleCollider otherCircle = m_CircleColliders[k];
@@ -136,7 +134,7 @@ namespace pe {
 
 		}
 
-		std::cout << count << '\n';
+		//std::cout << count << '\n';
 	}
 
 	void PhysicsEngine::UpdateQuadtree(float deltaTime)
@@ -164,9 +162,9 @@ namespace pe {
 
 				for (uint32_t id2 : node.colliderIds)
 				{
-					count++;
 					if (id1 == id2)
 						continue;
+					count++;
 
 					pe::Vector2f collisionNormal;
 					if (m_CircleColliders[id1].Collide(m_CircleColliders[id2], &collisionNormal))

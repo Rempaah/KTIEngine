@@ -24,9 +24,9 @@ public:
 	// Getters
 	pe::Vector2f GetPosition() const;
 	float GetRadius() const;
+	sf::CircleShape m_Circle;
 private:
 	uint32_t m_CircleCollider;
-	sf::CircleShape m_Circle;
 
 	pe::PhysicsEngine* m_PhysicsEngine;
 };

@@ -75,6 +75,8 @@ namespace pe {
 	{
 		Vector2f result;
 		float length = Length();
+		if (length == 0)
+			return Vector2f();
 		result = *this / length;
 
 		return result;

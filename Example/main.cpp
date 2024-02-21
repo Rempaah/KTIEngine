@@ -24,6 +24,7 @@ int main()
 		float a, b, c;
 		std::cin >> a >> b >> c;
 		Circle temp(&physicsEngine, { a, b}, c);
+		temp.m_Circle.setOutlineColor(sf::Color(a / 1000.0f * 2555, b / 1000.0f * 2555, 255));
 		something.push_back(temp);
 	}
 
@@ -53,22 +54,15 @@ int main()
 		lag += deltaTime;
 		previousTime += deltaTime;
 
-		while (lag >= frameTime)
-		{
-			lag -= frameTime;
-
-			physicsEngine.UpdateQuadtree(frameTime.count()/1000000.0f);
-			for (auto& i : something) {
-				i.Update();
-			}
-			if (lag < frameTime)
-			{
-				window.clear(sf::Color(0, 0, 0, 255));
-				for (auto& i : something) {
-					window.draw(i);
-				}
-				window.display();
-			}
+		physicsEngine.UpdateQuadtree(frameTime.count()/1000000.0f);
+		for (auto& i : something) {
+			i.Update();
 		}
+
+		window.clear(sf::Color(0, 0, 0, 255));
+		for (auto& i : something) {
+			window.draw(i);
+		}
+		window.display();
 	}
 }

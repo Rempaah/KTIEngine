@@ -88,6 +88,7 @@ namespace pe {
 				m_Nodes.push_back(topRight);
 				m_Nodes.push_back(bottomLeft);
 				m_Nodes.push_back(bottomRight);
+				i--;
 			}
 		}
 
