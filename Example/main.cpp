@@ -24,7 +24,7 @@ int main()
 		float a, b, c;
 		std::cin >> a >> b >> c;
 		Circle temp(&physicsEngine, { a, b}, c);
-		temp.m_Circle.setOutlineColor(sf::Color(a / 1000.0f * 2555, b / 1000.0f * 2555, 255));
+		temp.m_Circle.setOutlineColor(sf::Color(a / 1000.0f * 255, b / 1000.0f * 255, 255));
 		something.push_back(temp);
 	}
 

@@ -16,7 +16,7 @@ namespace pe {
 	class Quadtree
 	{
 	public:
-		Quadtree(float left, float right, float top, float bottom, int maxDepth = 10);
+		Quadtree(float left, float right, float top, float bottom, int maxDepth = 9);
 		~Quadtree();
 
 		std::vector<Node> GenerateNodes(std::unordered_map<uint32_t, CircleCollider>& colliders);
@@ -28,7 +28,7 @@ namespace pe {
 		float m_Bottom;
 
 		int m_MaxDepth;
-		int m_MaxObject = 5;
+		int m_MaxObject = 6;
 
 		std::vector<Node> m_Nodes;
 	};
